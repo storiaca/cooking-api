@@ -1,0 +1,19 @@
+{
+  "name": "cooking-api",
+  "version": "1.0.0",
+  "description": "Blog API for recipes",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/storiaca/cooking-api.git"
+  },
+  "author": "Aleksandar Ristic",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/storiaca/cooking-api/issues"
+  },
+  "homepage": "https://github.com/storiaca/cooking-api#readme"
+}

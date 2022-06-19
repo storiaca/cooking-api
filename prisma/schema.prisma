@@ -1,0 +1,88 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Users {
+  id              Int               @id @default(autoincrement())
+  email           String            @db.VarChar(255)
+  first_name      String            @db.VarChar(255)
+  last_name       String            @db.VarChar(255)
+  user_points     Int               @db.Int
+  user_image      String            @db.VarChar(255)
+  Auth_Codes      Auth_Codes[]
+  User_Categories User_Categories[]
+  Post_Likes      Post_Likes[]
+  Post_Comments   Post_Comments[]
+}
+
+model Auth_Codes {
+  id            Int      @id @default(autoincrement())
+  user_id       Users    @relation(fields: [usersId], references: [id])
+  usersId       Int
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  valid_through DateTime
+}
+
+model Categories {
+  id              Int               @id @default(autoincrement())
+  name            String            @db.VarChar(255)
+  User_Categories User_Categories[]
+  Post_Categories Post_Categories[]
+}
+
+model User_Categories {
+  user       Users      @relation(fields: [userId], references: [id])
+  userId     Int
+  category   Categories @relation(fields: [categoryId], references: [id])
+  categoryId Int
+
+  @@id([userId, categoryId])
+}
+
+model Post_Categories {
+  post       Posts      @relation(fields: [postId], references: [id])
+  postId     Int
+  category   Categories @relation(fields: [categoryId], references: [id])
+  categoryId Int
+
+  @@id([postId, categoryId])
+}
+
+model Post_Likes {
+  post    Posts @relation(fields: [postId], references: [id])
+  postId  Int
+  liker   Users @relation(fields: [likerId], references: [id])
+  likerId Int
+
+  @@id([postId, likerId])
+}
+
+model Post_Comments {
+  id          Int      @id @default(autoincrement())
+  post        Posts    @relation(fields: [postId], references: [id])
+  postId      Int
+  commenter   Users    @relation(fields: [commenterId], references: [id])
+  commenterId Int
+  comment     String   @db.VarChar(255)
+  createdAt   DateTime @default(now())
+}
+
+model Posts {
+  id              Int               @id @default(autoincrement())
+  title           String            @db.VarChar(255)
+  body            String            @db.VarChar(255)
+  image           String            @db.VarChar(255)
+  video           String            @db.VarChar(255)
+  Post_Categories Post_Categories[]
+  Post_Likes      Post_Likes[]
+  Post_Comments   Post_Comments[]
+}

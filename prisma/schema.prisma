@@ -17,14 +17,14 @@ model Users {
   last_name       String            @db.VarChar(255)
   user_points     Int               @db.Int
   user_image      String            @db.VarChar(255)
-  Auth_Codes      Auth_Codes[]
-  User_Categories User_Categories[]
-  Post_Likes      Post_Likes[]
-  Post_Comments   Post_Comments[]
+  auth_codes      Auth_Codes[]
+  user_categories User_Categories[]
+  post_likes      Post_Likes[]
+  post_comments   Post_Comments[]
 }
 
 model Auth_Codes {
-  id            Int      @id @default(autoincrement())
+  id            String   @id @default(uuid())
   user_id       Users    @relation(fields: [usersId], references: [id])
   usersId       Int
   createdAt     DateTime @default(now())
@@ -35,8 +35,8 @@ model Auth_Codes {
 model Categories {
   id              Int               @id @default(autoincrement())
   name            String            @db.VarChar(255)
-  User_Categories User_Categories[]
-  Post_Categories Post_Categories[]
+  user_categories User_Categories[]
+  post_categories Post_Categories[]
 }
 
 model User_Categories {
@@ -82,7 +82,7 @@ model Posts {
   body            String            @db.VarChar(255)
   image           String            @db.VarChar(255)
   video           String            @db.VarChar(255)
-  Post_Categories Post_Categories[]
-  Post_Likes      Post_Likes[]
-  Post_Comments   Post_Comments[]
+  post_categories Post_Categories[]
+  post_likes      Post_Likes[]
+  post_comments   Post_Comments[]
 }

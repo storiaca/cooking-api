@@ -21,6 +21,8 @@ model Users {
   user_categories User_Categories[]
   post_likes      Post_Likes[]
   post_comments   Post_Comments[]
+
+  @@map(name: "users")
 }
 
 model Auth_Codes {
@@ -30,6 +32,8 @@ model Auth_Codes {
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
   valid_through DateTime
+
+  @@map(name: "auth_codes")
 }
 
 model Categories {
@@ -37,6 +41,8 @@ model Categories {
   name            String            @db.VarChar(255)
   user_categories User_Categories[]
   post_categories Post_Categories[]
+
+  @@map(name: "categories")
 }
 
 model User_Categories {
@@ -46,6 +52,7 @@ model User_Categories {
   categoryId Int
 
   @@id([userId, categoryId])
+  @@map(name: "user_categories")
 }
 
 model Post_Categories {
@@ -55,6 +62,7 @@ model Post_Categories {
   categoryId Int
 
   @@id([postId, categoryId])
+  @@map(name: "post_categories")
 }
 
 model Post_Likes {
@@ -64,6 +72,7 @@ model Post_Likes {
   likerId Int
 
   @@id([postId, likerId])
+  @@map(name: "post_likes")
 }
 
 model Post_Comments {
@@ -74,6 +83,8 @@ model Post_Comments {
   commenterId Int
   comment     String   @db.VarChar(255)
   createdAt   DateTime @default(now())
+
+  @@map(name: "post_comments")
 }
 
 model Posts {
@@ -85,4 +96,6 @@ model Posts {
   post_categories Post_Categories[]
   post_likes      Post_Likes[]
   post_comments   Post_Comments[]
+
+  @@map(name: "posts")
 }

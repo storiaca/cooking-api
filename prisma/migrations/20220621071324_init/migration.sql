@@ -1,5 +1,5 @@
 -- CreateTable
-CREATE TABLE `Users` (
+CREATE TABLE `users` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
     `email` VARCHAR(255) NOT NULL,
     `first_name` VARCHAR(255) NOT NULL,
@@ -11,7 +11,7 @@ CREATE TABLE `Users` (
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- CreateTable
-CREATE TABLE `Auth_Codes` (
+CREATE TABLE `auth_codes` (
     `id` VARCHAR(191) NOT NULL,
     `usersId` INTEGER NOT NULL,
     `createdAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
@@ -22,7 +22,7 @@ CREATE TABLE `Auth_Codes` (
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- CreateTable
-CREATE TABLE `Categories` (
+CREATE TABLE `categories` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
     `name` VARCHAR(255) NOT NULL,
 
@@ -30,7 +30,7 @@ CREATE TABLE `Categories` (
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- CreateTable
-CREATE TABLE `User_Categories` (
+CREATE TABLE `user_categories` (
     `userId` INTEGER NOT NULL,
     `categoryId` INTEGER NOT NULL,
 
@@ -38,7 +38,7 @@ CREATE TABLE `User_Categories` (
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- CreateTable
-CREATE TABLE `Post_Categories` (
+CREATE TABLE `post_categories` (
     `postId` INTEGER NOT NULL,
     `categoryId` INTEGER NOT NULL,
 
@@ -46,7 +46,7 @@ CREATE TABLE `Post_Categories` (
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- CreateTable
-CREATE TABLE `Post_Likes` (
+CREATE TABLE `post_likes` (
     `postId` INTEGER NOT NULL,
     `likerId` INTEGER NOT NULL,
 
@@ -54,7 +54,7 @@ CREATE TABLE `Post_Likes` (
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- CreateTable
-CREATE TABLE `Post_Comments` (
+CREATE TABLE `post_comments` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
     `postId` INTEGER NOT NULL,
     `commenterId` INTEGER NOT NULL,
@@ -65,7 +65,7 @@ CREATE TABLE `Post_Comments` (
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- CreateTable
-CREATE TABLE `Posts` (
+CREATE TABLE `posts` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
     `title` VARCHAR(255) NOT NULL,
     `body` VARCHAR(255) NOT NULL,
@@ -76,28 +76,28 @@ CREATE TABLE `Posts` (
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- AddForeignKey
-ALTER TABLE `Auth_Codes` ADD CONSTRAINT `Auth_Codes_usersId_fkey` FOREIGN KEY (`usersId`) REFERENCES `Users`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE `auth_codes` ADD CONSTRAINT `auth_codes_usersId_fkey` FOREIGN KEY (`usersId`) REFERENCES `users`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE `User_Categories` ADD CONSTRAINT `User_Categories_userId_fkey` FOREIGN KEY (`userId`) REFERENCES `Users`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE `user_categories` ADD CONSTRAINT `user_categories_userId_fkey` FOREIGN KEY (`userId`) REFERENCES `users`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE `User_Categories` ADD CONSTRAINT `User_Categories_categoryId_fkey` FOREIGN KEY (`categoryId`) REFERENCES `Categories`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE `user_categories` ADD CONSTRAINT `user_categories_categoryId_fkey` FOREIGN KEY (`categoryId`) REFERENCES `categories`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE `Post_Categories` ADD CONSTRAINT `Post_Categories_categoryId_fkey` FOREIGN KEY (`categoryId`) REFERENCES `Categories`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE `post_categories` ADD CONSTRAINT `post_categories_categoryId_fkey` FOREIGN KEY (`categoryId`) REFERENCES `categories`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE `Post_Categories` ADD CONSTRAINT `Post_Categories_postId_fkey` FOREIGN KEY (`postId`) REFERENCES `Posts`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE `post_categories` ADD CONSTRAINT `post_categories_postId_fkey` FOREIGN KEY (`postId`) REFERENCES `posts`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE `Post_Likes` ADD CONSTRAINT `Post_Likes_likerId_fkey` FOREIGN KEY (`likerId`) REFERENCES `Users`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE `post_likes` ADD CONSTRAINT `post_likes_likerId_fkey` FOREIGN KEY (`likerId`) REFERENCES `users`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE `Post_Likes` ADD CONSTRAINT `Post_Likes_postId_fkey` FOREIGN KEY (`postId`) REFERENCES `Posts`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE `post_likes` ADD CONSTRAINT `post_likes_postId_fkey` FOREIGN KEY (`postId`) REFERENCES `posts`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE `Post_Comments` ADD CONSTRAINT `Post_Comments_commenterId_fkey` FOREIGN KEY (`commenterId`) REFERENCES `Users`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE `post_comments` ADD CONSTRAINT `post_comments_commenterId_fkey` FOREIGN KEY (`commenterId`) REFERENCES `users`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE `Post_Comments` ADD CONSTRAINT `Post_Comments_postId_fkey` FOREIGN KEY (`postId`) REFERENCES `Posts`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE `post_comments` ADD CONSTRAINT `post_comments_postId_fkey` FOREIGN KEY (`postId`) REFERENCES `posts`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
